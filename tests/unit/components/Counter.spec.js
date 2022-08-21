@@ -25,7 +25,7 @@ describe("Pruebas en <Counter />", () => {
 	});
 
 	test("Debe incrementar en 1 el contador", async () => {
-		const [incrementButton] = wrapper.findAll("button");
+		const [incrementButton, ] = wrapper.findAll("button");
 		await incrementButton.trigger("click");
 		const value = wrapper.find("p[data-testid='counter']").text();
 		expect(value).toBe("101");
@@ -42,6 +42,17 @@ describe("Pruebas en <Counter />", () => {
 	test("Debe de establecer el valor por defecto", () => {
 		const { start } = wrapper.props();
 		const value = wrapper.find("p[data-testid='counter']").text();
-		expect(Number (value)).toBe(start);
+		expect(Number(value)).toBe(start);
+	});
+
+	test("Debe de mostrar la prop title", () => {
+		const title = "Hola mundo"
+		const wrapper = shallowMount(Counter, {
+			props: {
+				title,
+				start: 11,
+			},
+		});
+		expect(wrapper.find("h2").text()).toBe(title);
 	});
 });
